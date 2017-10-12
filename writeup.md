@@ -87,7 +87,7 @@ I tried 3 different approaches to counter overfitting.
 
 I still notice that the NVIDIA model overfits with higher epochs. So early stopping was necessary. I tried simplifying the model further but this did not help. 
 
-#### 7. Final Model Architecture
+### 7. Final Model Architecture
 
 The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
 
