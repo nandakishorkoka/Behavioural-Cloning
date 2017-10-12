@@ -5,3 +5,4 @@
 .ipynb_checkpoints
 *.app
 *.h5
+*.tar.gz
