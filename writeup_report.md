@@ -50,29 +50,40 @@ I used the sample data provided. In addition, I generated training data for 3 la
 
 For every observation, I had  
 * The center camera image 
+
 ![alt text][image1]
+
 * The left camera image and used a small correction of -0.2 
+
 ![alt text][image4]
+
 * The right camera image used a small correction of 0.2 
+
 ![alt text][image5]
+
 
 And for every image, 
 * I generated the flipped image 
+
 ![alt text][image2]
+
 * brighness change and change to HSV color space 
+
 ![alt text][image3]
 
 Therefore, for every center camera images, I generate 11 other images that could be using for training 
 
 Looking at the distribution, the data is highly imbalanced. 
+
 ![alt text][image6]
 
 To deal with this, I limited the number of training sample for each steering angle 
+
 ![alt text][image7]
 
 And when using the flipped images, the distribution is lot more balanced
-![alt text][image8]
 
+![alt text][image8]
 
 I first normalized the data to zero mean and SD of 0.5.I cropped top 75 pixels and bottom 20 pixels to just retain the view of the road thereby reducing the dimensionality 
 
@@ -103,8 +114,9 @@ The second model was based on NVIDIA model for autonomous driving. It consisted 
 * FC Layer 64 units 
 * FC Layer 8 units 
 * Output 1 unit 
+ 
+Looking at the learning curve, I noticed the model was overfitting. The details are covered next in overfitting sections. 
 
-I added dropouts here as well. This model achieved a validation loss of 0.04. 
 
 ### 5. Model parameter tuning
 
@@ -117,7 +129,22 @@ I tried 3 different approaches to counter overfitting.
 * Added Dropouts 
 * Simplified the architecture. I reduced filter depths and number of units in the hidden layer. 
 
-I still notice that the NVIDIA model overfits with higher epochs. So early stopping was necessary. I tried simplifying the model further but this did not help. 
+The second model was based on NVIDIA model for autonomous driving. It consisted of the following: 
+* Convolution Layer with Filter Depth of 24 with Kernel Size 5x5 with ReLU activations 
+* Convolution Layer with Filter Depth of 36 with Kernel Size 5x5 with ReLU activations 
+* Convolution Layer with Filter Depth of 48 with Kernel Size 5x5 with ReLU activations 
+* Convolution Layer with Filter Depth of 64 with Kernel Size 3x3 with ReLU activations
+* Convolution Layer with Filter Depth of 96 with Kernel Size 3x3 with ReLU activations
+* Convolution Layer with Filter Depth of 128 with Kernel Size 3x3 with ReLU activations
+* FC Layer 64 units 
+* FC Layer 32 units 
+* FC Layer 8 units 
+* Output 1 unit 
+
+I still notice that the NVIDIA model overfits with higher epochs. So early stopping was necessary. 
+
+![alt text][image9]
+
 
 ### 7. Final Model Architecture
 
@@ -128,7 +155,8 @@ The final model architecture (model.py lines 18-24) consisted of a convolution n
 * Convolution Layer with Filter Depth of 48 with Kernel Size 5x5 with ReLU activations 
 * Convolution Layer with Filter Depth of 64 with Kernel Size 3x3 with ReLU activations
 * Convolution Layer with Filter Depth of 96 with Kernel Size 3x3 with ReLU activations
-* FC Layer 128 units 
+* Convolution Layer with Filter Depth of 128 with Kernel Size 3x3 with ReLU activations
+* FC Layer 64 units 
 * FC Layer 32 units 
 * FC Layer 8 units 
 * Output 1 unit 
