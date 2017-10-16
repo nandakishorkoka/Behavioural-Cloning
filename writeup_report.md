@@ -1,5 +1,7 @@
 # **Behavioral Cloning** 
 
+![alt text][image1]
+
 # Project Writeup 
 
 The goals of this project are the following:
@@ -34,19 +36,47 @@ My project includes the following files:
 
 ### 2. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to drive the car at a higher speeds and staying on the track. 
+The overall goal was to build a model capable of driving the car at a higher speeds and staying on the track. 
 
-With data for 2 laps, My first step was to use a convolution neural network model similar to the LeNet architecture. I wanted to see how well this performs before choosing a more complex model. When the LeNet model did not do so well, I implemented the NVIDIA reference model and initially, I noticed the model was overfitting i.e. the validation loss was significantly higher than the training loss. I tried several iterations by generating more data, adding dropout and simplifying the layers to counter overfitting. 
+With data for 2 laps, My first step was to use a convolution neural network model similar to the LeNet architecture. I wanted to see how well this performs before choosing a more complex model. When the LeNet model did not do so well, I implemented the NVIDIA reference model and handled overfitting. The final step was to run the simulator to see how well the car was driving around track one. At the end of the process, the vehicle is able to drive autonomously around the track but went off the track in a couple of situations. It was tremendous improvement. 
 
-The final step was to run the simulator to see how well the car was driving around track one. At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
+To build a more robust model, I realized the data was not well balanced. Also augmenting the data with image processing could provide more data for the model to train on. I used the sample data provided. In addition, I generated training data for 3 laps and 1 lap in reverse track. 
+
+Lastly, to handle the large dataset, I designed a generator that provides batches of data during training and validation. This helps not having to load all images into memory at one. 
 
 ### 3. Data Generation and  Preprocessing 
 
-I generated data using the simulator in training mode. Initially I collected data for 2 laps. In addition, I collected data for 1 lap in the opposite direction. I used images from all 3 cameras using a correction factor 0.25. I also flipped the images and measurements to double the amount of data. 
- 
+I used the sample data provided. In addition, I generated training data for 3 laps and 1 lap in reverse track using the simulator. 
+
+For every observation, I had  
+* The center camera image 
+![alt text][image1]
+* The left camera image and used a small correction of -0.2 
+![alt text][image4]
+* The right camera image used a small correction of 0.2 
+![alt text][image5]
+
+And for every image, 
+* I generated the flipped image 
+![alt text][image2]
+* brighness change and change to HSV color space 
+![alt text][image3]
+
+Therefore, for every center camera images, I generate 11 other images that could be using for training 
+
+Looking at the distribution, the data is highly imbalanced. 
+![alt text][image6]
+
+To deal with this, I limited the number of training sample for each steering angle 
+![alt text][image7]
+
+And when using the flipped images, the distribution is lot more balanced
+![alt text][image8]
+
+
 I first normalized the data to zero mean and SD of 0.5.I cropped top 75 pixels and bottom 20 pixels to just retain the view of the road thereby reducing the dimensionality 
 
-I finally randomly shuffled the data set and put 20% of the data into a validation set. 
+I finally randomly shuffled the data set and put 25% of the data into a validation set. 
 
 ### 4. Model Architecture and Training Strategy
 
