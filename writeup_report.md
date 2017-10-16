@@ -13,13 +13,15 @@ The goals of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[image1]: ./examples/img_original.png "Model Visualization"
+[image2]: ./examples/img_flipped.png "Grayscaling"
+[image3]: ./examples/img_brighness_hsv.png "Recovery Image"
+[image4]: ./examples/img_left.png "Recovery Image"
+[image5]: ./examples/img_right.png "Recovery Image"
+[image6]: ./examples/img_orig_dist.png "Normal Image"
+[image7]: ./examples/img_trunc_dist.png "Flipped Image"
+[image8]: ./examples/img_balanced_dist.png "Flipped Image"
+[image9]: ./examples/img_learning_curve.png "Flipped Image"
 
 ### 1. Relevant Files
 
